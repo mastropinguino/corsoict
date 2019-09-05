@@ -1,13 +1,20 @@
 package corso;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class KeyPad extends JPanel implements ActionListener{
 
+	JPanel calc = new JPanel();
 	
 	//===========KEYPAD STRING================//
 	private static final String CMD_SUB = "-";
@@ -37,16 +44,24 @@ public class KeyPad extends JPanel implements ActionListener{
 	private JButton sub = new JButton(CMD_SUB);
 	private JButton dot = new JButton(CMD_DOT);
 	
+	//===========JLABEL==============//
+	JLabel text = new JLabel("0.0");
+	
 	//=====ENABLE/DISABLE BUTTON========//
-	private boolean enabled;
+	private boolean enabled = true;
 	
 	
 
 	
 	public KeyPad() {
-		
-		setLayout(new GridLayout(4,3));
 	
+	//==========SETTING LAYOUT==============//
+		calc.setLayout(new GridLayout(4,3));
+		text.setPreferredSize(new Dimension(50,100));
+		
+	
+		setLayout(new BorderLayout());
+		
 	//==========BUTTON ACTION==========//
 		one.addActionListener(this);
 		two.addActionListener(this);
@@ -62,19 +77,23 @@ public class KeyPad extends JPanel implements ActionListener{
 		sub.addActionListener(this);
 		
 	//========ADD BUTTON==============//
-		add(one);
-		add(two);
-		add(three);
-		add(four);
-		add(five);
-		add(six);
-		add(seven);
-		add(eight);
-		add(nine);		
-		add(dot);
-		add(zero);
-		add(sub);
 		
+		//textLabel.add(text);
+		calc.add(one);
+		calc.add(two);
+		calc.add(three);
+		calc.add(four);
+		calc.add(five);
+		calc.add(six);
+		calc.add(seven);
+		calc.add(eight);
+		calc.add(nine);		
+		calc.add(dot);
+		calc.add(zero);
+		calc.add(sub);
+		
+		add(text,BorderLayout.PAGE_START);
+		add(calc,BorderLayout.CENTER);
 		
 	}
 

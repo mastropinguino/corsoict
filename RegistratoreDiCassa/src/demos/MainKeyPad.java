@@ -15,15 +15,15 @@ public class MainKeyPad {
 	public static void main(String args[]) {
 		JFrame frame = new JFrame();
 		KeyPad kp = new KeyPad();
-		JButton on = new JButton("on");
-		JButton off = new JButton("off");
-		JPanel pan = new JPanel();
-		JPanel pan2 = new JPanel();
+		//JButton on = new JButton("on");
+		//JButton off = new JButton("off");
+		//JPanel pan = new JPanel();
+		//JPanel pan2 = new JPanel();
 		
-		pan.setLayout(new GridLayout(1,2));
-		pan2.setLayout(new GridLayout(2,1));
+		//pan.setLayout(new GridLayout(1,1));
+		//pan2.setLayout(new GridLayout(2,1));
 		
-		on.addActionListener(new ActionListener( ) {
+		/*on.addActionListener(new ActionListener( ) {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -39,13 +39,14 @@ public class MainKeyPad {
 				
 			}
 			
-		});
+		});*/
 		
-		pan.add(on);
-		pan.add(off);
-		pan2.add(kp);
-		pan2.add(pan);
-		frame.add(pan2);
+		//pan.add(on);
+		//pan.add(off);
+		//pan2.add(kp);
+		//pan2.add(pan);
+		//pan.add(kp);
+		frame.add(kp);
 		
 		frame.setVisible(true);
 		frame.setSize(400, 500);
