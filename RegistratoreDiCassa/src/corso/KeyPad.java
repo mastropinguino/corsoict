@@ -3,6 +3,7 @@ package corso;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,7 +15,10 @@ import javax.swing.SwingConstants;
 
 public class KeyPad extends JPanel implements ActionListener{
 
+	//===========CALCULATOR PANEL============//
 	JPanel calc = new JPanel();
+	
+	
 	
 	//===========KEYPAD STRING================//
 	private static final String CMD_SUB = "-";
@@ -45,7 +49,7 @@ public class KeyPad extends JPanel implements ActionListener{
 	private JButton dot = new JButton(CMD_DOT);
 	
 	//===========JLABEL==============//
-	JLabel text = new JLabel("0.0");
+	JLabel text = new JLabel("0.0",SwingConstants.RIGHT);
 	
 	//=====ENABLE/DISABLE BUTTON========//
 	private boolean enabled = true;
@@ -58,6 +62,7 @@ public class KeyPad extends JPanel implements ActionListener{
 	//==========SETTING LAYOUT==============//
 		calc.setLayout(new GridLayout(4,3));
 		text.setPreferredSize(new Dimension(50,100));
+		
 		
 	
 		setLayout(new BorderLayout());
