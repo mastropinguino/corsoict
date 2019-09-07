@@ -45,7 +45,6 @@ public class MainKeyPad {
 		//pan.add(off);
 		//pan2.add(kp);
 		//pan2.add(pan);
-		//pan.add(kp);
 		frame.add(kp);
 		
 		frame.setVisible(true);
