@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,43 +20,75 @@ public class ProgGUI2 extends JFrame{
 	
 	public ProgGUI2() {
 		
-		mainPanel = new JPanel();
-		
-		leftPanel = new JPanel();
-		
-		fatouPanel = new JPanel();
-		scontrino = new JButton("Scontrino");
-		
-		paoloPanel = new JPanel();
-		paoloPanel.add(new JLabel("Paolo"));
-		paoloPanel.add(scontrino);
-		lorenzoPanel = new JPanel();
-		
-		
-		totale = new JTextField();
 		GridBagLayout gbLayout = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
+		this.setLayout(gbLayout);
 		
-		leftPanel.setLayout(new GridLayout(3,1));
-		leftPanel.add(totale);
-		leftPanel.add(new JLabel("Lorezo"));
-		leftPanel.add(paoloPanel);
+		//TextField totale
 		
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 3;
-		c.gridwidth= GridBagConstraints.RELATIVE;
-		gbLayout.setConstraints(leftPanel, c);
-		mainPanel.add(leftPanel);
+		totale = new JTextField();
 		
+		c.gridx = 0;
+		c.gridy = 0;
+		c.gridwidth = 2;
+		
+		totale.setHorizontalAlignment(JLabel.CENTER);
+		//totale.setVerticalAlignment(JLabel.CENTER);
+		totale.setPreferredSize(new Dimension(300, 50));
+		add(totale, c);
+		
+		//Product selector
+		c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 1;
+		c.gridwidth = 2;
+		c.weightx = 0.5;
+		
+		ProductSelecter lorenzo = new ProductSelecter();
+		lorenzo.setPreferredSize(new Dimension(300, 90));
+		add(lorenzo, c);
+		
+		//Keypad
+		c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 3;
+		c.gridwidth = 1;
 		c.weightx = 1;
-		c.gridwidth = GridBagConstraints.REMAINDER;
-		gbLayout.setConstraints(fatouPanel, c);
-		mainPanel.add(new ProductList());
 		
-		add(mainPanel);
-		setSize(new Dimension(500,700));
-		//pack();
+		KeyPad paolo=new KeyPad(); 
+		
+		paolo.setPreferredSize(new Dimension(300, 400));
+		add(paolo, c);
+		
+		//Lista prodotti
+		c = new GridBagConstraints();
+		c.gridx = 2;
+		c.gridy = 0;
+		c.gridheight = 3;
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 1;
+		c.weighty = 1;
+		
+		ProductList fatou = new ProductList();
+		
+		add(fatou, c);
+
+		//Bottone add product
+		c = new GridBagConstraints();
+		JButton scontrino = new JButton("Scontrino");
+		c.fill = GridBagConstraints.NONE;
+		c.gridx = 1;
+		c.gridy = 2;
+		c.gridwidth = 1;
+		c.anchor = GridBagConstraints.CENTER;
+		c.insets = new Insets(20, 20, 20, 20);
+		
+		scontrino.setPreferredSize(new Dimension(100, 50));
+		add(scontrino, c);
+		
+		pack();
 		setVisible(true);
+		
 	}
 	
 
