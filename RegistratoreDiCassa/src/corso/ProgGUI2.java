@@ -14,12 +14,12 @@ import javax.swing.JTextField;
 
 public class ProgGUI2 extends JFrame{
 	
-	JPanel mainPanel, paoloPanel, fatouPanel, lorenzoPanel, leftPanel;
-	JButton scontrino;
+	
+	
 	JTextField totale;
 	
 	public ProgGUI2() {
-		
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		GridBagLayout gbLayout = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		this.setLayout(gbLayout);
