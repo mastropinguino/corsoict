@@ -5,7 +5,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class ProductList extends JPanel{
+public class ProductList extends JPanel {
 	//static JList lista;
 		
 	

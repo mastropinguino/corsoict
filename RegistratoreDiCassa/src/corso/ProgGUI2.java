@@ -30,22 +30,22 @@ public class ProgGUI2 extends JFrame{
 		
 		c.gridx = 0;
 		c.gridy = 0;
-		c.gridwidth = 2;
+		c.gridwidth = 1;
 		
 		totale.setHorizontalAlignment(JLabel.CENTER);
 		//totale.setVerticalAlignment(JLabel.CENTER);
-		totale.setPreferredSize(new Dimension(300, 50));
+		totale.setPreferredSize(new Dimension(250, 50));
 		add(totale, c);
 		
 		//Product selector
 		c = new GridBagConstraints();
 		c.gridx = 0;
 		c.gridy = 1;
-		c.gridwidth = 2;
+		c.gridwidth = 1;
 		c.weightx = 0.5;
 		
 		ProductSelecter lorenzo = new ProductSelecter();
-		lorenzo.setPreferredSize(new Dimension(300, 90));
+		lorenzo.setPreferredSize(new Dimension(250, 90));
 		add(lorenzo, c);
 		
 		//Keypad
@@ -57,7 +57,7 @@ public class ProgGUI2 extends JFrame{
 		
 		KeyPad paolo=new KeyPad(); 
 		
-		paolo.setPreferredSize(new Dimension(300, 400));
+		paolo.setPreferredSize(new Dimension(250, 400));
 		add(paolo, c);
 		
 		//Lista prodotti
@@ -66,11 +66,11 @@ public class ProgGUI2 extends JFrame{
 		c.gridy = 0;
 		c.gridheight = 3;
 		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 1;
+		c.weightx = 2;
 		c.weighty = 1;
 		
 		ProductList fatou = new ProductList();
-		
+		fatou.setSize(new Dimension(150,700));
 		add(fatou, c);
 
 		//Bottone add product
@@ -78,12 +78,12 @@ public class ProgGUI2 extends JFrame{
 		JButton scontrino = new JButton("Scontrino");
 		c.fill = GridBagConstraints.NONE;
 		c.gridx = 1;
-		c.gridy = 2;
+		c.gridy = 3;
 		c.gridwidth = 1;
 		c.anchor = GridBagConstraints.CENTER;
 		c.insets = new Insets(20, 20, 20, 20);
 		
-		scontrino.setPreferredSize(new Dimension(100, 50));
+		scontrino.setPreferredSize(new Dimension(80, 60));
 		add(scontrino, c);
 		
 		pack();

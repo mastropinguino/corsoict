@@ -1,6 +1,5 @@
 package demos;
 
-import corso.ProgGUI;
 import corso.ProgGUI2;
 
 public class ProgGUIProva {
