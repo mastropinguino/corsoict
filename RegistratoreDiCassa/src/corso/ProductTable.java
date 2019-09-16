@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class ProductTable {
@@ -20,15 +21,17 @@ public class ProductTable {
 	public ArrayList<Prodotto> leggiProdotti() throws SQLException{
 		Connection conn = ConnessioneDB.getConnection();
 		ArrayList <Prodotto> aux = new ArrayList<>();
-		try(ResultSet rs = conn.createStatement().executeQuery(SQL_READ_PRODUCT)){
-			while(rs.next()) {
-				Prodotto p = new Prodotto();
-				p.nome = rs.getString("nome");
-				p.prezzo = rs.getFloat("prezzo");
-				p.codice = rs.getInt("codice");
-				 aux.add(p);
+		try(Statement stmt = conn.createStatement()){
+			try(ResultSet rs = stmt.executeQuery(SQL_READ_PRODUCT)){
+				while(rs.next()) {
+					Prodotto p = new Prodotto();
+					p.nome = rs.getString("nome");
+					p.prezzo = rs.getFloat("prezzo");
+					p.codice = rs.getInt("codice");
+					 aux.add(p);
+				}
 			}
-		}
+	}
 		return aux;
 	}
 	
