@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 -- Struttura della tabella `negozio`
 --
 
-CREATE TABLE `negozio` (
+CREATE TABLE IF NOT EXISTS `negozio` (
   `id_negozio` int(11) NOT NULL,
   `responsabile` char(12) DEFAULT NULL,
   `citta` char(12) DEFAULT NULL
@@ -48,7 +48,7 @@ INSERT INTO `negozio` (`id_negozio`, `responsabile`, `citta`) VALUES
 -- Struttura della tabella `prodotto`
 --
 
-CREATE TABLE `prodotto` (
+CREATE TABLE IF NOT EXISTS `prodotto` (
   `codice` int(11) NOT NULL,
   `nome` varchar(250) NOT NULL,
   `prezzo` float NOT NULL
