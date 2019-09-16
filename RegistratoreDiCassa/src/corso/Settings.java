@@ -8,13 +8,11 @@ public class Settings {
 	static final String DB_NAME = "corso";
 	
 	static final String APP_VERSION = "0.1-dev";
-<<<<<<< HEAD
+
 	static final int KEYPAD_FONT = 24;
 
-=======
+
 	
-	
->>>>>>> branch 'master' of https://github.com/mastropinguino/corsoict.git
 	private Settings() {
 	}
 
