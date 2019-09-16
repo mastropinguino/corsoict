@@ -17,8 +17,8 @@ public class FileReceiptPrinter {
 			FileWriter fw = new FileWriter(file);
 			fw.write("ID SCONTRINO\t");
 			fw.write("   DATA/ORA\t  ");
-			fw.write("TOTALE\t");
-			fw.write("IVA\t");
+			fw.write("TOTALE \t");
+			fw.write("IVA \t");
 			fw.flush();
 			fw.close();
 		} catch (IOException e) {
