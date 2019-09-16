@@ -1,9 +1,11 @@
 package corso;
 
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 
@@ -22,15 +24,18 @@ public class ScontrinoTable {
 	public ArrayList<Scontrino> leggiProdotti() throws SQLException{
 		Connection conn = ConnessioneDB.getConnection();
 		ArrayList <Scontrino> aux = new ArrayList<>();
-		try(ResultSet rs = conn.createStatement().executeQuery(SQL_READ_SCONTRINO)){
-			while(rs.next()) {
-				Scontrino s = new Scontrino();
-				s.id = rs.getInt("id");
-				s.totale = rs.getFloat("totale");
-				s.data = rs.getDate("data_ora");
-				s.iva = rs.getInt("iva");
-				s.negozio = rs.getInt("negozio");
-				 aux.add(s);
+		try(Statement stmt = conn.createStatement()){
+			
+			try(ResultSet rs = stmt.executeQuery(SQL_READ_SCONTRINO)){
+				while(rs.next()) {
+					Scontrino s = new Scontrino();
+					s.id = rs.getInt("id");
+					s.totale = rs.getFloat("totale");
+					s.data = rs.getDate("data_ora");
+					s.iva = rs.getInt("iva");
+					s.negozio = rs.getInt("negozio");
+					 aux.add(s);
+				}
 			}
 		}
 		return aux;
