@@ -14,12 +14,22 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 public class KeyPad extends JPanel implements ActionListener{
-
-	//===========CALCULATOR PANEL============//
+	
+	//used for insert in the label the button values
+	private String calcText = "";
+	
+	//used for disable the button : dot when is already insert 
+	private int count_Dot = 0;
+	
+	//===========MY FONT==================//	
+	private Font MyFont = new Font("TimesRoman",Font.BOLD,Settings.KEYPAD_FONT);
+	
+	//========CALCULATOR PANEL============//
 	JPanel calc = new JPanel();
-	
-	
-	
+
+	//===========JLABEL==============//
+	JLabel text = new JLabel("0.0",SwingConstants.RIGHT);
+
 	//===========KEYPAD STRING================//
 	private static final String CMD_SUB = "-";
 	private static final String CMD_0 = "0";
@@ -48,23 +58,16 @@ public class KeyPad extends JPanel implements ActionListener{
 	private JButton sub = new JButton(CMD_SUB);
 	private JButton dot = new JButton(CMD_DOT);
 	
-	//===========JLABEL==============//
-	JLabel text = new JLabel("0.0",SwingConstants.RIGHT);
-	
 	//=====ENABLE/DISABLE BUTTON========//
 	private boolean enabled = true;
 	
 	
-
+	//=========CREATING KEYPAD=============//
 	
 	public KeyPad() {
-	
 	//==========SETTING LAYOUT==============//
 		calc.setLayout(new GridLayout(4,3));
 		text.setPreferredSize(new Dimension(50,100));
-		
-		
-	
 		setLayout(new BorderLayout());
 		
 	//==========BUTTON ACTION==========//
@@ -83,7 +86,9 @@ public class KeyPad extends JPanel implements ActionListener{
 		
 	//========ADD BUTTON==============//
 		
-		//textLabel.add(text);
+		//dot button start disabled 
+		dot.setEnabled(!enabled);
+		
 		calc.add(one);
 		calc.add(two);
 		calc.add(three);
@@ -100,10 +105,39 @@ public class KeyPad extends JPanel implements ActionListener{
 		add(text,BorderLayout.PAGE_START);
 		add(calc,BorderLayout.CENTER);
 		
+	 //=================SET FONT==================//
+	
+		one.setFont(MyFont);
+		two.setFont(MyFont);
+		three.setFont(MyFont);
+		four.setFont(MyFont);
+		five.setFont(MyFont);
+		six.setFont(MyFont);
+		seven.setFont(MyFont);
+		eight.setFont(MyFont);
+		nine.setFont(MyFont);
+		zero.setFont(MyFont);
+		sub.setFont(MyFont);
+		dot.setFont(MyFont);
+		text.setFont(MyFont);
+	
+	
+	
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		String aux_Char = e.getActionCommand();
+		
+		if(calcText.length() >= 0 && count_Dot == 0) {
+			dot.setEnabled(true);
+			count_Dot = 1;
+		} else {
+			dot.setEnabled(false);
+		}
+		
+		calcText += aux_Char; 
+		text.setText(calcText);
 		
 	}
 		

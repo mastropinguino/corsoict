@@ -11,9 +11,13 @@ public class Settings {
 
 	static final int KEYPAD_FONT = 24;
 
+<<<<<<< HEAD
 
 	
+=======
+>>>>>>> branch 'master' of https://github.com/mastropinguino/corsoict.git
 	private Settings() {
+	
 	}
 
 }
