@@ -97,7 +97,7 @@ public class ProgGUI2 extends JFrame {
 		c.anchor = GridBagConstraints.CENTER;
 		c.insets = new Insets(10, 10, 10, 10);
 
-		scontrino.setPreferredSize(new Dimension(100, 150));
+		scontrino.setPreferredSize(new Dimension(100, 250));
 		add(scontrino, c);
 
 		this.setLocationRelativeTo(null);
