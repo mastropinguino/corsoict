@@ -43,4 +43,8 @@ public class Settings {
 			ex.printStackTrace();
 		}
 	}
+	
+	public static void loadSettingsTEST() {
+		loadSettings("src/test/TestConfig.properties");
+	}
 }
