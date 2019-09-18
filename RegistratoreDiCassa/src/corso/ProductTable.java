@@ -7,14 +7,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import db.Prodotto;
+
+
 public class ProductTable {
 
-	
-	class Prodotto{
-		String nome;
-		float prezzo;
-		int codice;
-	}
 	
 	private final static String SQL_READ_PRODUCT = "SELECT  nome, prezzo, codice FROM prodotti ";
 	
@@ -25,9 +22,9 @@ public class ProductTable {
 			try(ResultSet rs = stmt.executeQuery(SQL_READ_PRODUCT)){
 				while(rs.next()) {
 					Prodotto p = new Prodotto();
-					p.nome = rs.getString("nome");
-					p.prezzo = rs.getFloat("prezzo");
-					p.codice = rs.getInt("codice");
+					p.setNome(rs.getString("nome"));
+					p.setPrezzo(rs.getFloat("prezzo"));
+					p.setCodice(rs.getInt("codice"));
 					 aux.add(p);
 				}
 			}
