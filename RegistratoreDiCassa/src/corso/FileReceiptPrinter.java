@@ -26,15 +26,26 @@ public class FileReceiptPrinter {
 		try {
 			
 			FileWriter fw = new FileWriter(file);
-			fw.write("1\n");
+			fw.write("CAFFETTERIA JAVA\n");
+			fw.write("Via Garibaldi 11\n");
+			fw.write("00187 ROMA\n");
+			fw.write("P.IVA 12345678901");
+			fw.write("\n");
+			fw.write("\n");
+			fw.write("\n");
+			fw.write("\n");
+			fw.write("Q.TA    PRODOTTO        IMPORTO\n");
+			fw.write("\n");
+			fw.write("2X\t" + "coperto\t" + "\t 2,00€\n");
+			fw.write("5X\t" + "caffe espresso\t" +" 5,50€\n");
+			fw.write("\n");
 			fw.write("\n");
 			Instant adesso = Instant.now();
 			String outputData = adesso.toString();
-			fw.write(outputData);
-			fw.write("prodotto1\n");
-			fw.write("2x\n");
-			fw.write("20,50€\n");
-			fw.write("4,51€\n ");
+			fw.write("TOT : \t" + "\t \t 7,50€\n");
+			fw.write("\n");
+			fw.write("DATA : " + outputData+"\n");
+			fw.write("SCONTRINO NUMERO 1\n");
 			fw.flush();
 			fw.close();
 		} catch (IOException e) {
