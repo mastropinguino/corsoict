@@ -1,12 +1,10 @@
 package corso;
 
 import java.io.*;
-import java.time.Instant;
-
-
-
-
-
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 
 public class FileReceiptPrinter {
@@ -17,15 +15,13 @@ public class FileReceiptPrinter {
 		
 	}
 	
-	
-	
-	
-
 	public void scriviFile() {
 
 		try {
+			String aux;
 			
 			FileWriter fw = new FileWriter(file);
+			
 			fw.write("CAFFETTERIA JAVA\n");
 			fw.write("Via Garibaldi 11\n");
 			fw.write("00187 ROMA\n");
@@ -34,17 +30,19 @@ public class FileReceiptPrinter {
 			fw.write("\n");
 			fw.write("\n");
 			fw.write("\n");
-			fw.write("Q.TA    PRODOTTO        IMPORTO\n");
+			//Intestazione articoli
+			aux = String.format("%-6s %-20s %10s\n", "Q.TA", "PRODOTTO", "IMPORTO");
+			fw.write(aux);
 			fw.write("\n");
-			fw.write("2X\t" + "coperto\t" + "\t 2,00€\n");
-			fw.write("5X\t" + "caffe espresso\t" +" 5,50€\n");
+			// Elenco articoli
+			aux = String.format("%-4d X %-20s %10.2f\n", 12, "coperto", 3.5);
+			fw.write(aux);
 			fw.write("\n");
 			fw.write("\n");
-			Instant adesso = Instant.now();
-			String outputData = adesso.toString();
-			fw.write("TOT : \t" + "\t \t 7,50€\n");
+			fw.write("TOT : \t" + "\t \t 3.50€\n");
 			fw.write("\n");
-			fw.write("DATA : " + outputData+"\n");
+			LocalDateTime dt = LocalDateTime.now();
+			fw.write(String.format("DATA: %td/%tm/%tY %tH:%tM\n", dt, dt, dt, dt, dt));
 			fw.write("SCONTRINO NUMERO 1\n");
 			fw.flush();
 			fw.close();
