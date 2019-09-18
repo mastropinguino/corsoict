@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,7 +19,11 @@ import javax.swing.SwingConstants;
 @SuppressWarnings("serial")
 public class ProgGUI2 extends JFrame {
 
-	JTextField totale;
+	JTextField totale = null;
+	ProductSelector lorenzo = null;
+	KeyPad paolo = null;
+	ProductList fatou = null;
+	JButton scontrino = null;
 
 	public ProgGUI2() {
 		
@@ -56,7 +61,7 @@ public class ProgGUI2 extends JFrame {
 		c.insets = new Insets(10, 10, 10, 10);
 
 		
-		ProductSelecter lorenzo = new ProductSelecter();
+		lorenzo = new ProductSelector();
 		lorenzo.setPreferredSize(new Dimension(250, 90));
 		add(lorenzo, c);
 
@@ -68,7 +73,7 @@ public class ProgGUI2 extends JFrame {
 		c.weightx = 1;
 		c.insets = new Insets(10, 10, 10, 10);
 
-		KeyPad paolo = new KeyPad();
+		paolo = new KeyPad();
 
 		paolo.setPreferredSize(new Dimension(200, 250));
 		add(paolo, c);
@@ -83,13 +88,13 @@ public class ProgGUI2 extends JFrame {
 		c.weighty = 1;
 		c.insets = new Insets(10, 10, 10, 10);
 
-		ProductList fatou = new ProductList();
+		fatou = new ProductList();
 		fatou.setPreferredSize(new Dimension(150, 400));
 		add(fatou, c);
 
 		// Bottone scontrino
 		c = new GridBagConstraints();
-		JButton scontrino = new JButton("Scontrino");
+		scontrino = new JButton("Scontrino");
 		c.fill = GridBagConstraints.NONE;
 		c.gridx = 1;
 		c.gridy = 2;
@@ -100,10 +105,23 @@ public class ProgGUI2 extends JFrame {
 		scontrino.setPreferredSize(new Dimension(100, 250));
 		add(scontrino, c);
 
-		this.setLocationRelativeTo(null);
+
+	}
+	
+	public void init() {
+		paolo.setDisabled();
+		try {
+			lorenzo.addProducts(new ProductTable().leggiProdotti());
+		} catch (SQLException e) {
+			System.out.println("ERRORE SQL: impossibile caricare prodotti dal db");
+			e.printStackTrace();
+		}
+	}
+	
+	public void run() {
+		setLocationRelativeTo(null);
 		pack();
 		setVisible(true);
-
 	}
 
 }
