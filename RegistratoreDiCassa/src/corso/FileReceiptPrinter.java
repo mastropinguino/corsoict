@@ -39,6 +39,8 @@ public class FileReceiptPrinter {
 			fw.write(aux);
 			fw.write("\n");
 			fw.write("\n");
+			//totale articoli
+			aux = String.format("%-6s %10 )
 			fw.write("TOT : \t" + "\t \t 3.50€\n");
 			fw.write("\n");
 			LocalDateTime dt = LocalDateTime.now();
