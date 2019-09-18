@@ -87,7 +87,7 @@ public class KeyPad extends JPanel implements ActionListener{
 	//========ADD BUTTON==============//
 		
 		//dot button start disabled 
-		dot.setEnabled(!enabled);
+		dot.setEnabled(enabled);
 		
 		calc.add(one);
 		calc.add(two);
@@ -129,12 +129,17 @@ public class KeyPad extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		String aux_Char = e.getActionCommand();
 		
-		if(calcText.length() >= 0 && count_Dot == 0) {
-			dot.setEnabled(true);
-			count_Dot = 1;
-		} else {
-			dot.setEnabled(false);
+		if(e.getActionCommand().equals(",")) {
+			
+			dot.setEnabled(!enabled);
 		}
+		
+		if (e.getActionCommand().equals("-")) {
+			
+			sub.setEnabled(!enabled);
+			dot.setEnabled(enabled);
+		}
+		
 		
 		calcText += aux_Char; 
 		text.setText(calcText);

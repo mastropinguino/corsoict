@@ -35,6 +35,7 @@ public class ProgGUI2 extends JFrame{
 		totale.setHorizontalAlignment(JLabel.CENTER);
 		//totale.setVerticalAlignment(JLabel.CENTER);
 		totale.setPreferredSize(new Dimension(250, 50));
+		totale.setEnabled(false);
 		add(totale, c);
 		
 		//Product selector
