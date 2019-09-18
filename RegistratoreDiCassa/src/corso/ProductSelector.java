@@ -14,9 +14,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import db.Prodotto;
+
 
 @SuppressWarnings("serial")
-public class ProductSelecter extends JPanel {
+public class ProductSelector extends JPanel {
 
 	// Testo del JButton
 	final static String ADD_BTN = "Aggiungi";
@@ -26,11 +28,11 @@ public class ProductSelecter extends JPanel {
 	final DummySampleProduct SELECT = new DummySampleProduct();
 
 	// Lista vuota: per il costruttore senza parametri
-	final static ArrayList<SampleProduct> emptyList = new ArrayList<>();
+	final static ArrayList<Prodotto> emptyList = new ArrayList<>();
 
-	static JComboBox<SampleProduct> cmb_products = new JComboBox<>();
-	static JButton btn_add = new JButton(ADD_BTN);
-	static JLabel lbl_prezzo = new JLabel();
+	JComboBox<Prodotto> cmb_products = new JComboBox<>();
+	JButton btn_add = new JButton(ADD_BTN);
+	JLabel lbl_prezzo = new JLabel();
 	
 	private Vector<InterListener> ascoltatori = new Vector<InterListener>();
 
@@ -42,7 +44,7 @@ public class ProductSelecter extends JPanel {
 	 * 
 	 */
 
-	public ProductSelecter(ArrayList<SampleProduct> productsList) {
+	public ProductSelector() {
 		
 		// Layout del panel (this)
 		GridLayout layout = new GridLayout(2, 1);
@@ -52,7 +54,7 @@ public class ProductSelecter extends JPanel {
 		// #1 Row: JComboBox con la lista dei prodotti
 		cmb_products.addActionListener(new ComboAction());
 		((JLabel) cmb_products.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
-		this.addProducts(productsList);
+		cmb_products.addItem(SELECT);
 		this.add(cmb_products);
 
 		// #2 Row: spazione vuoto e JButton "Aggiungi"
@@ -69,23 +71,14 @@ public class ProductSelecter extends JPanel {
 	}
 
 	/**
-	 * Crea il pannello con una combo box con prodotti di prova
-	 */
-
-	public ProductSelecter() {
-		this(emptyList);
-	}
-
-	/**
 	 * Aggiunge gli elementi dell'ArrayList in input al JComboBox
 	 * 
 	 * @param productsList lista dei prodotti da aggiungere
 	 */
 
-	public void addProducts(ArrayList<SampleProduct> productsList) {
+	public void addProducts(ArrayList<Prodotto> productsList) {
 
-		cmb_products.addItem(SELECT);
-		for (SampleProduct product : productsList) {
+		for (Prodotto product : productsList) {
 			cmb_products.addItem(product);
 		}
 
@@ -93,7 +86,11 @@ public class ProductSelecter extends JPanel {
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		if (productsList.isEmpty()) {
 			for (int i = 0; i < 5; i++) {
-				cmb_products.addItem(new SampleProduct("Prodotto #" + i, i * 10));
+				Prodotto prd = new Prodotto();
+				prd.setCodice(i);
+				prd.setNome("Prodotto #"+i);
+				prd.setPrezzo(i*10);
+				cmb_products.addItem(prd);
 			}
 		}
 		// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -111,7 +108,7 @@ public class ProductSelecter extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			SampleProduct selectedProducts = (SampleProduct) cmb_products.getSelectedItem();
+			Prodotto selectedProducts = (Prodotto) cmb_products.getSelectedItem();
 
 			// Se non viene selezionato alcun oggetto non fa niente
 			if (selectedProducts.equals(SELECT))
@@ -136,18 +133,17 @@ public class ProductSelecter extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			SampleProduct aux = (SampleProduct) cmb_products.getSelectedItem();
+			Prodotto aux = (Prodotto) cmb_products.getSelectedItem();
 
 			String prezzo;
-			if (aux.price != 0)
-				prezzo = "€" + aux.price;
+			if (aux.getPrezzo() != 0)
+				prezzo = "€" + aux.getPrezzo();
 			else
 				prezzo = "-prezzo-";
 
 			lbl_prezzo.setText(prezzo);
 		}
 	}
-
 
 
 	/**
@@ -168,7 +164,7 @@ public class ProductSelecter extends JPanel {
 	 * @param prodottoAggiunto
 	 */
 
-	public void crealanciaEvento(SampleProduct prodottoAggiunto) {
+	public void crealanciaEvento(Prodotto prodottoAggiunto) {
 		AggiuntoProdotto event = new AggiuntoProdotto(this, prodottoAggiunto);
 
 		for (InterListener listener : ascoltatori)
@@ -184,22 +180,22 @@ public class ProductSelecter extends JPanel {
 
 	public class AggiuntoProdotto extends EventObject {
 
-		private SampleProduct prodottoAggiunto = null;
+		private Prodotto prodottoAggiunto = null;
 
 		public AggiuntoProdotto(Object source) {
 			super(source);
 		}
 
-		public AggiuntoProdotto(Object source, SampleProduct prodotto) {
+		public AggiuntoProdotto(Object source, Prodotto prodotto) {
 			super(source);
 			setProdotto(prodotto);
 		}
 
-		public void setProdotto(SampleProduct prodotto) {
+		public void setProdotto(Prodotto prodotto) {
 			this.prodottoAggiunto = prodotto;
 		}
 
-		public SampleProduct getProdottoAggiunto() {
+		public Prodotto getProdottoAggiunto() {
 			return prodottoAggiunto;
 		}
 
@@ -213,26 +209,12 @@ public class ProductSelecter extends JPanel {
 	 *
 	 */
 
-	private class SampleProduct {
-
-		private String productName;
-		private float price;
-
-		SampleProduct(String nome, float prezzo) {
-			this.productName = nome;
-			this.price = prezzo;
-		}
-
-		@Override
-		public String toString() {
-			return "Nome: " + this.productName + " - Prezzo: " + this.price + " €";
-		}
-	}
-
-	private class DummySampleProduct extends SampleProduct {
+	private class DummySampleProduct extends Prodotto {
 
 		DummySampleProduct() {
-			super(SELECT_STRING, 0f);
+			super();
+			setNome(SELECT_STRING);
+			setPrezzo(0f);
 		}
 
 		@Override

@@ -13,7 +13,7 @@ import db.Prodotto;
 public class ProductTable {
 
 	
-	private final static String SQL_READ_PRODUCT = "SELECT  nome, prezzo, codice FROM prodotti ";
+	private final static String SQL_READ_PRODUCT = "SELECT  nome, prezzo, codice FROM prodotto ";
 	
 	public ArrayList<Prodotto> leggiProdotti() throws SQLException{
 		Connection conn = ConnessioneDB.getConnection();
@@ -25,7 +25,7 @@ public class ProductTable {
 					p.setNome(rs.getString("nome"));
 					p.setPrezzo(rs.getFloat("prezzo"));
 					p.setCodice(rs.getInt("codice"));
-					 aux.add(p);
+					aux.add(p);
 				}
 			}
 	}

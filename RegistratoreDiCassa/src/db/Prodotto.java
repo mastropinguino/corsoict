@@ -49,4 +49,9 @@ public class Prodotto {
 	public int esempiodiCalcolo(int y) {
 		return (int) (prezzo + y);
 	}
+	
+	@Override
+	public String toString() {
+		return this.nome;
+	}
 }
