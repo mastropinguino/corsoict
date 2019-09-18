@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Set 16, 2019 alle 10:38
+-- Creato il: Set 16, 2019 alle 10:04
 -- Versione del server: 10.3.15-MariaDB
 -- Versione PHP: 7.3.6
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 -- Struttura della tabella `negozio`
 --
 
-CREATE TABLE IF NOT EXISTS `negozio` (
+CREATE TABLE `negozio` (
   `id_negozio` int(11) NOT NULL,
   `responsabile` char(12) DEFAULT NULL,
   `citta` char(12) DEFAULT NULL
@@ -39,39 +39,39 @@ CREATE TABLE IF NOT EXISTS `negozio` (
 --
 
 INSERT INTO `negozio` (`id_negozio`, `responsabile`, `citta`) VALUES
-(123, 'NomeCognome', 'Pisa'),
-(456, 'NomeCognome2', 'Lucca');
+(123, 'NomeCognome', 'Pisa');
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `prodotto`
+-- Struttura della tabella `prodotti`
 --
 
-CREATE TABLE IF NOT EXISTS `prodotto` (
+CREATE TABLE `prodotti` (
   `codice` int(11) NOT NULL,
   `nome` varchar(250) NOT NULL,
+  `note` varchar(255) NOT NULL,
   `prezzo` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dump dei dati per la tabella `prodotto`
+-- Dump dei dati per la tabella `prodotti`
 --
 
-INSERT INTO `prodotto` (`codice`, `nome`, `prezzo`) VALUES
-(1, 'PC Notebook Asus', 500),
-(2, 'PC Lenovo', 660),
-(3, 'PC Vaio 2010', 700);
+INSERT INTO `prodotti` (`codice`, `nome`, `note`, `prezzo`) VALUES
+(1, '', 'PC Notebook Asus', 500),
+(2, '', 'PC Lenovo', 660),
+(3, '', 'PC Vaio 2010', 700);
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `prodotto_scontrino`
+-- Struttura della tabella `prodotti_scontrini`
 --
 
-CREATE TABLE `prodotto_scontrino` (
-  `id_prodotto` int(11) NOT NULL,
-  `id_scontrino` int(11) NOT NULL,
+CREATE TABLE `prodotti_scontrini` (
+  `id_prodotti` int(11) NOT NULL,
+  `id_scontrini` int(11) NOT NULL,
   `quantita` int(11) NOT NULL,
   `prezzo_applicato` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -79,10 +79,10 @@ CREATE TABLE `prodotto_scontrino` (
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `scontrino`
+-- Struttura della tabella `scontrini`
 --
 
-CREATE TABLE `scontrino` (
+CREATE TABLE `scontrini` (
   `id` int(11) NOT NULL,
   `totale` float NOT NULL,
   `data_ora` datetime NOT NULL,
@@ -91,12 +91,34 @@ CREATE TABLE `scontrino` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dump dei dati per la tabella `scontrino`
+-- Dump dei dati per la tabella `scontrini`
 --
 
-INSERT INTO `scontrino` (`id`, `totale`, `data_ora`, `iva`, `negozio`) VALUES
+INSERT INTO `scontrini` (`id`, `totale`, `data_ora`, `iva`, `negozio`) VALUES
 (4, 800, '2019-09-10 00:00:00', 10, 0),
 (5, 1200, '2019-09-01 00:00:00', 10, 0);
+
+--
+-- Indici per le tabelle scaricate
+--
+
+--
+-- Indici per le tabelle `prodotti`
+--
+ALTER TABLE `prodotti`
+  ADD PRIMARY KEY (`codice`);
+
+--
+-- Indici per le tabelle `prodotti_scontrini`
+--
+ALTER TABLE `prodotti_scontrini`
+  ADD PRIMARY KEY (`id_prodotti`);
+
+--
+-- Indici per le tabelle `scontrini`
+--
+ALTER TABLE `scontrini`
+  ADD PRIMARY KEY (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

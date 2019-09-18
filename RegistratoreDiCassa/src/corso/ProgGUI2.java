@@ -43,6 +43,7 @@ public class ProgGUI2 extends JFrame {
 		totale.setHorizontalAlignment(JLabel.CENTER);
 		totale.setEnabled(false);
 		totale.setPreferredSize(new Dimension(250, 50));
+		totale.setEnabled(false);
 		add(totale, c);
 
 		// Product selector
@@ -96,7 +97,7 @@ public class ProgGUI2 extends JFrame {
 		c.anchor = GridBagConstraints.CENTER;
 		c.insets = new Insets(10, 10, 10, 10);
 
-		scontrino.setPreferredSize(new Dimension(100, 150));
+		scontrino.setPreferredSize(new Dimension(100, 250));
 		add(scontrino, c);
 
 		this.setLocationRelativeTo(null);

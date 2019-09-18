@@ -14,6 +14,8 @@ public class Prodotto_Scontrino {
 	private int id_scontrino;
 	private int quantita;
 	private float prezzo_applicato;
+	private Prodotto prodotto;
+	private Scontrino scontrino;
 
 	/**
 	 * Costruttore degli oggetti di classe Scontrino
@@ -24,20 +26,17 @@ public class Prodotto_Scontrino {
 	}
 
 	public int getId_prodotto() {
-		return id_prodotto;
-	}
-
-	public void setId_prodotto(int id_prodotto) {
-		this.id_prodotto = id_prodotto;
+		if (prodotto == null)
+			return 0;
+		return prodotto.getCodice();
 	}
 
 	public int getId_scontrino() {
-		return id_scontrino;
+		if (scontrino == null)
+			return 0;
+		return scontrino.getId();
 	}
 
-	public void setId_scontrino(int id_scontrino) {
-		this.id_scontrino = id_scontrino;
-	}
 
 	public int getQuantita() {
 		return quantita;
@@ -53,6 +52,22 @@ public class Prodotto_Scontrino {
 
 	public void setPrezzo_applicato(float prezzo_applicato) {
 		this.prezzo_applicato = prezzo_applicato;
+	}
+	
+	public void setProdotto(Prodotto p) {
+		this.prodotto = p;
+	}
+	
+	public Prodotto getProdotto() {
+		return prodotto;
+	}
+	
+	public void setScontrino(Scontrino s) {
+		this.scontrino = s;
+	}
+	
+	public Scontrino getScontrino() {
+		return scontrino;
 	}
 
 }

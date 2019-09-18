@@ -1,11 +1,12 @@
 package corso;
 
 public class Settings {
-	static final String DB_HOST = "localhost";
-	static final int DB_PORT = 3306;
-	static final String DB_USER = "root";
-	static final String DB_PASS = "";
-	static final String DB_NAME = "corso";
+	public static  String DB_HOST = "localhost";
+	public static int DB_PORT = 3306;
+	public static String DB_USER = "root";
+	public static String DB_PASS = "";
+	public static String DB_NAME = "corso";
+	
 	
 	static final String APP_VERSION = "0.1-dev";
 
