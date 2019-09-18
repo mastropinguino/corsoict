@@ -9,7 +9,7 @@ public class ConnessioneDB {
 	static private Connection conn = null;
 
 	
-	static Connection getConnection() throws SQLException {
+	public static Connection getConnection() throws SQLException {
 		if (conn != null) {
 			return conn;
 		}
