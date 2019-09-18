@@ -101,7 +101,7 @@ public class ProgGUI2 extends JFrame {
 		add(scontrino, c);
 
 		this.setLocationRelativeTo(null);
-		//pack();
+		pack();
 		setVisible(true);
 
 	}
