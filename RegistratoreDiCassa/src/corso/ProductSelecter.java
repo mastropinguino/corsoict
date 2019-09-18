@@ -4,6 +4,9 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.EventListener;
+import java.util.EventObject;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -11,22 +14,25 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+
 @SuppressWarnings("serial")
 public class ProductSelecter extends JPanel {
 
 	// Testo del JButton
 	final static String ADD_BTN = "Aggiungi";
-	
+
 	// Elemento vuoto della lista
 	final String SELECT_STRING = "--- seleziona un prodotto ---";
-	final DummySampleProduct SELECT = new DummySampleProduct ();
-	
+	final DummySampleProduct SELECT = new DummySampleProduct();
+
 	// Lista vuota: per il costruttore senza parametri
 	final static ArrayList<SampleProduct> emptyList = new ArrayList<>();
 
 	static JComboBox<SampleProduct> cmb_products = new JComboBox<>();
 	static JButton btn_add = new JButton(ADD_BTN);
 	static JLabel lbl_prezzo = new JLabel();
+	
+	private Vector<InterListener> ascoltatori = new Vector<InterListener>();
 
 	/**
 	 * Crea il panel contentente la combo box con la lista dei prodotti e il bottone
@@ -37,7 +43,7 @@ public class ProductSelecter extends JPanel {
 	 */
 
 	public ProductSelecter(ArrayList<SampleProduct> productsList) {
-
+		
 		// Layout del panel (this)
 		GridLayout layout = new GridLayout(2, 1);
 		layout.setVgap(5);
@@ -45,7 +51,7 @@ public class ProductSelecter extends JPanel {
 
 		// #1 Row: JComboBox con la lista dei prodotti
 		cmb_products.addActionListener(new ComboAction());
-		((JLabel)cmb_products.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+		((JLabel) cmb_products.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 		this.addProducts(productsList);
 		this.add(cmb_products);
 
@@ -87,7 +93,7 @@ public class ProductSelecter extends JPanel {
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		if (productsList.isEmpty()) {
 			for (int i = 0; i < 5; i++) {
-				cmb_products.addItem(new SampleProduct("Prodotto #" + i, i*10));
+				cmb_products.addItem(new SampleProduct("Prodotto #" + i, i * 10));
 			}
 		}
 		// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -95,84 +101,153 @@ public class ProductSelecter extends JPanel {
 
 	/**
 	 * ActionListener del bottone
+	 * 
 	 * @author Utente
 	 *
 	 */
-	
+
 	private class ButtonAction implements ActionListener {
-	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		
-		SampleProduct selectedProducts = (SampleProduct) cmb_products.getSelectedItem();
 
-		// Se non viene selezionato alcun oggetto non fa niente
-		if (selectedProducts.equals(SELECT))
-			return;
+		@Override
+		public void actionPerformed(ActionEvent e) {
 
-		System.out.println("DEBUG >>> " + selectedProducts);
-		// TODO: metodo per mandare la selezione al JList
+			SampleProduct selectedProducts = (SampleProduct) cmb_products.getSelectedItem();
 
-		cmb_products.setSelectedIndex(0);
+			// Se non viene selezionato alcun oggetto non fa niente
+			if (selectedProducts.equals(SELECT))
+				return;
+
+			System.out.println("DEBUG >>> " + selectedProducts);
+			// TODO: metodo per mandare la selezione al JList
+
+			cmb_products.setSelectedIndex(0);
 		}
 	}
-	
+
 	/**
 	 * Mostra il prezzo nel JLabel accanto al bottone
 	 * 
 	 * @author Lorenzo
 	 *
 	 */
-	
+
 	private class ComboAction implements ActionListener {
-		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+
 			SampleProduct aux = (SampleProduct) cmb_products.getSelectedItem();
-			
+
 			String prezzo;
 			if (aux.price != 0)
 				prezzo = "Ä" + aux.price;
 			else
 				prezzo = "-prezzo-";
-			
+
 			lbl_prezzo.setText(prezzo);
 		}
 	}
-	
+
+
+
+	/**
+	 * Aggiunge listener a questo elemento. Saranno aggiunti in ProgGui, saranno
+	 * KeyPad e ProductList
+	 * 
+	 * @param listener
+	 */
+
+	public void addInternalListener(InterListener listener) {
+		this.ascoltatori.add(listener);
+	}
+
+	/**
+	 * Crea e lancia l'evento. Verr√† fatto al momento del click sul bottono
+	 * aggiungi
+	 * 
+	 * @param prodottoAggiunto
+	 */
+
+	public void crealanciaEvento(SampleProduct prodottoAggiunto) {
+		AggiuntoProdotto event = new AggiuntoProdotto(this, prodottoAggiunto);
+
+		for (InterListener listener : ascoltatori)
+			listener.prodottoAggiunto(event);
+	}
+
+	/**
+	 * Evento lanciato all'aggiunta del prodotto
+	 * 
+	 * @author Lorenzo Cioni
+	 *
+	 */
+
+	public class AggiuntoProdotto extends EventObject {
+
+		private SampleProduct prodottoAggiunto = null;
+
+		public AggiuntoProdotto(Object source) {
+			super(source);
+		}
+
+		public AggiuntoProdotto(Object source, SampleProduct prodotto) {
+			super(source);
+			setProdotto(prodotto);
+		}
+
+		public void setProdotto(SampleProduct prodotto) {
+			this.prodottoAggiunto = prodotto;
+		}
+
+		public SampleProduct getProdottoAggiunto() {
+			return prodottoAggiunto;
+		}
+
+	}
+
+//-----------------------------------------------------------------------------------------------	
 	/**
 	 * Classe ausiliare per inserire prodotti nel combo box
 	 * 
 	 * @author Lorenzo
 	 *
 	 */
-	
+
 	private class SampleProduct {
-		
+
 		private String productName;
 		private float price;
-		
-		SampleProduct (String nome, float prezzo){
+
+		SampleProduct(String nome, float prezzo) {
 			this.productName = nome;
 			this.price = prezzo;
 		}
-		
+
 		@Override
 		public String toString() {
 			return "Nome: " + this.productName + " - Prezzo: " + this.price + " Ä";
 		}
 	}
-	
+
 	private class DummySampleProduct extends SampleProduct {
-		
-		DummySampleProduct () {
+
+		DummySampleProduct() {
 			super(SELECT_STRING, 0f);
 		}
-		
+
 		@Override
 		public String toString() {
 			return SELECT_STRING;
 		}
+	}
+	
+	public static interface InterListener extends EventListener {
+		
+		/**
+		 * Azione effettuata quando viene recepito un evento di tipo AggiuntoProdotto
+		 * @param event
+		 */
+		
+		public void prodottoAggiunto (AggiuntoProdotto event);
 	}
 }
