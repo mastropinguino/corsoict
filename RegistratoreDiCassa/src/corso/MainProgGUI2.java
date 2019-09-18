@@ -8,7 +8,7 @@ public class MainProgGUI2 {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run(){
-				Settings.loadSettings("src/test/TestConfig.properties");
+				Settings.loadSettings("src/config.properties");
 				ProgGUI2 gui = new ProgGUI2();
 				gui.init();
 				gui.run();				

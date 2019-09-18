@@ -16,7 +16,6 @@ import javax.swing.SwingConstants;
 
 import db.Prodotto;
 
-
 @SuppressWarnings("serial")
 public class ProductSelector extends JPanel {
 
@@ -25,6 +24,7 @@ public class ProductSelector extends JPanel {
 
 	// Elemento vuoto della lista
 	final String SELECT_STRING = "--- seleziona un prodotto ---";
+	final String DISCOUNT_STRING = "+ + + Buono sconto + + + ";
 	final DummySampleProduct SELECT = new DummySampleProduct();
 
 	// Lista vuota: per il costruttore senza parametri
@@ -33,7 +33,7 @@ public class ProductSelector extends JPanel {
 	JComboBox<Prodotto> cmb_products = new JComboBox<>();
 	JButton btn_add = new JButton(ADD_BTN);
 	JLabel lbl_prezzo = new JLabel();
-	
+
 	private Vector<InterListener> ascoltatori = new Vector<InterListener>();
 
 	/**
@@ -45,7 +45,7 @@ public class ProductSelector extends JPanel {
 	 */
 
 	public ProductSelector() {
-		
+
 		// Layout del panel (this)
 		GridLayout layout = new GridLayout(2, 1);
 		layout.setVgap(5);
@@ -88,8 +88,8 @@ public class ProductSelector extends JPanel {
 			for (int i = 0; i < 5; i++) {
 				Prodotto prd = new Prodotto();
 				prd.setCodice(i);
-				prd.setNome("Prodotto #"+i);
-				prd.setPrezzo(i*10);
+				prd.setNome("Prodotto #" + i);
+				prd.setPrezzo(i * 10);
 				cmb_products.addItem(prd);
 			}
 		}
@@ -113,7 +113,8 @@ public class ProductSelector extends JPanel {
 			// Se non viene selezionato alcun oggetto non fa niente
 			if (selectedProducts.equals(SELECT))
 				return;
-
+			
+			
 			System.out.println("DEBUG >>> " + selectedProducts);
 			// TODO: metodo per mandare la selezione al JList
 
@@ -144,7 +145,6 @@ public class ProductSelector extends JPanel {
 			lbl_prezzo.setText(prezzo);
 		}
 	}
-
 
 	/**
 	 * Aggiunge listener a questo elemento. Saranno aggiunti in ProgGui, saranno
@@ -181,6 +181,7 @@ public class ProductSelector extends JPanel {
 	public class AggiuntoProdotto extends EventObject {
 
 		private Prodotto prodottoAggiunto = null;
+		private boolean isDiscount = false;
 
 		public AggiuntoProdotto(Object source) {
 			super(source);
@@ -188,6 +189,8 @@ public class ProductSelector extends JPanel {
 
 		public AggiuntoProdotto(Object source, Prodotto prodotto) {
 			super(source);
+			if (prodotto instanceof ScontoProdotto)
+				isDiscount = true;
 			setProdotto(prodotto);
 		}
 
@@ -198,6 +201,10 @@ public class ProductSelector extends JPanel {
 		public Prodotto getProdottoAggiunto() {
 			return prodottoAggiunto;
 		}
+		
+		public boolean isDiscountProduct() {
+			return isDiscount;
+		}
 
 	}
 
@@ -206,7 +213,6 @@ public class ProductSelector extends JPanel {
 	 * Classe ausiliare per inserire prodotti nel combo box
 	 * 
 	 * @author Lorenzo
-	 *
 	 */
 
 	private class DummySampleProduct extends Prodotto {
@@ -222,14 +228,29 @@ public class ProductSelector extends JPanel {
 			return SELECT_STRING;
 		}
 	}
-	
+
+	private class ScontoProdotto extends Prodotto {
+
+		ScontoProdotto() {
+			super();
+			setNome(DISCOUNT_STRING);
+			setPrezzo(0f);
+		}
+
+		@Override
+		public String toString() {
+			return SELECT_STRING;
+		}
+	}
+
 	public static interface InterListener extends EventListener {
-		
+
 		/**
 		 * Azione effettuata quando viene recepito un evento di tipo AggiuntoProdotto
+		 * 
 		 * @param event
 		 */
-		
-		public void prodottoAggiunto (AggiuntoProdotto event);
+
+		public void prodottoAggiunto(AggiuntoProdotto event);
 	}
 }

@@ -16,8 +16,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import corso.ProductSelector.AggiuntoProdotto;
+import corso.ProductSelector.InterListener;
+
 @SuppressWarnings("serial")
-public class ProgGUI2 extends JFrame {
+public class ProgGUI2 extends JFrame implements InterListener {
 
 	JTextField totale = null;
 	ProductSelector lorenzo = null;
@@ -122,6 +125,21 @@ public class ProgGUI2 extends JFrame {
 		setLocationRelativeTo(null);
 		pack();
 		setVisible(true);
+	}
+	
+	/**
+	 * Metodo che verrà eseguito quando verrà lanciato un evento di tipo AggiuntoProdotto da
+	 * ProductSelector
+	 */
+	
+	@Override
+	public void prodottoAggiunto(AggiuntoProdotto event) {
+		
+		if (event.isDiscountProduct()) {
+			paolo.setEnabled();
+		}
+		
+		//TODO metodo che aggiunge il prodotto, event.getProdotto(), alla ProductList (e table)
 	}
 
 }
