@@ -22,9 +22,9 @@ public class Settings {
 
 	private Settings() {
 	}
-	
+
 	public static void loadSettings(String path) {
-		
+
 		try (InputStream input = new FileInputStream(path)) {
 
 			Properties prop = new Properties();
@@ -35,17 +35,12 @@ public class Settings {
 			DB_USER = prop.getProperty("db.user");
 			DB_PASS = prop.getProperty("db.password");
 			DB_NAME = prop.getProperty("db.name");
-			
+
 			System.out.println("DEBUGG:");
 			prop.forEach((k, v) -> System.out.println("Key : " + k + " - Value : " + v));
-			
+
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
-
-
 	}
-
-	
-	
 }
