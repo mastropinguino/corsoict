@@ -63,7 +63,7 @@ public class Prodotto_Scontrino {
 	}
 	
 	public void setScontrino(Scontrino s) {
-		this.id_scontrino = s;
+		this.scontrino = s;
 	}
 	
 	public Scontrino getScontrino() {
